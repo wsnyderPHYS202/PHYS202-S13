@@ -14,5 +14,18 @@ def dipolePotential(x,y,q,d):
     Vdp = V1 - V2
     return Vdp
 
-
+def pointField(x,y,q,Xq,Yq):
+    """Takes in (x,y) of a point and the position (Xq,Yq) as well as the charge q 
+        and returns the electric field components (Ex, Ey)"""
+    from math import sqrt
+    k = 8.99*10**9
+    numex = (k*q)*(x - Xq)
+    denomx = np.sqrt((x-Xq)**2 + (y-Yq)**2)
+    Ex = numex/denomx
+    
+    numey = (k*q)*(y - Yq)
+    denomy = np.sqrt((x-Xq)**2 + (y-Yq)**2)
+    Ey = numey/denomy
+    
+    return Ex,Ey
 

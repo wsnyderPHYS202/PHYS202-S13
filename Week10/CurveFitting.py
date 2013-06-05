@@ -12,8 +12,8 @@ def LinearLeastSquaresFit(x,y):
     b = (pxsq*py - px*pxy)/(pxsq - px**2)
     
     pd = n*sum((y - (m*x+b))**2)
-    unm = sqrt(1./(x.size - 2)*pd/(pxsq-px**2))
-    unb = sqrt(1./(x.size - 2)*pd*pxsq/(pxsq-px**2))
+    unm = (1./(x.size - 2)*pd/(pxsq-px**2))**.5
+    unb = (1./(x.size - 2)*pd*pxsq/(pxsq-px**2))**.5
     
     return m,b,unm,unb
 
@@ -30,8 +30,8 @@ def WeightedLinearLeastSquaresFit(x,y,w):
     m = (W*WXY-WX*WY)/(W*WXsq-(WX**2))
     b = (WXsq*WY-WX*WXY)/(W*WXsq-(WX)**2)
     
-    unm = sqrt(W/(W*WXsq-(WX**2))) 
-    unb = sqrt(WXsq/(W*WXsq-(WX**2)))
+    unm = (W/(W*WXsq-(WX**2))) **.5
+    unb = (WXsq/(W*WXsq-(WX**2)))**.5
     
     return m,unm,b,unb
 

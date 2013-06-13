@@ -13,9 +13,31 @@ ylabel('y (mm)')
 axis equal
 %%
 hold on
-% Do something else now that the first part works.
+w = ey.^2;
+[m, unm, b, unb] = WeightedLinearLeastSquaresFit(w,x,y);
+%disp(y)
+%disp(b)
+wplot = m.*x + b;
+plot(x,wplot)
 hold off
 %%
-% Do something in a second figure window.
-%figure(5)
-%plot(x,x.^2)
+hold on
+% function to fit 
+fun = @(a,b,c,x) -sqrt(a^2-(x-b).^2)+c;
+% Find a starting point for the parameters a, b, and c.
+guess = fun(15,0,15,x); % fun(a,b,c,x)
+plot(x,guess,'r:')
+% fit the data
+fittedmodel = fit(x',y',fun,'StartPoint',[15 0 15])
+% plot the result
+plot(fittedmodel,'r-');
+hold off
+%%
+hold on 
+% fit the data using the uncertainties as weights
+w = ey.^-2;
+weightedfitted = fit(x',y',fun,'StartPoint',[15 0 15],'Weights',w');
+% plot the result
+plot(weightedfitted,'g--');
+disp(weightedfitted)
+hold off
